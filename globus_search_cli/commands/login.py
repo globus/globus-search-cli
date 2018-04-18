@@ -1,6 +1,7 @@
 import click
 import platform
 
+from globus_search_cli.printing import safeprint
 from globus_search_cli.config import (
     SEARCH_AT_OPTNAME, SEARCH_AT_EXPIRES_OPTNAME, SEARCH_RT_OPTNAME,
     lookup_option, write_option,
@@ -56,7 +57,7 @@ def _store_config(token_response):
     write_option(SEARCH_AT_OPTNAME, search_at)
     write_option(SEARCH_AT_EXPIRES_OPTNAME, search_at_expires)
 
-    print(_LOGIN_EPILOG)
+    safeprint(_LOGIN_EPILOG)
 
 
 def _do_login_flow():
@@ -68,9 +69,9 @@ def _do_login_flow():
         requested_scopes=SEARCH_ALL_SCOPE,
         refresh_tokens=True, prefill_named_grant=label)
     linkprompt = 'Please log into Globus here'
-    print('{0}:\n{1}\n{2}\n{1}\n'
-          .format(linkprompt, '-' * len(linkprompt),
-                  native_client.oauth2_get_authorize_url()))
+    safeprint('{0}:\n{1}\n{2}\n{1}\n'
+              .format(linkprompt, '-' * len(linkprompt),
+                      native_client.oauth2_get_authorize_url()))
     auth_code = click.prompt(
         'Enter the resulting Authorization Code here').strip()
     tkn = native_client.oauth2_exchange_code_for_tokens(auth_code)
@@ -89,7 +90,7 @@ def _do_login_flow():
 def login_command(force):
     # if not forcing, stop if user already logged in
     if not force and _check_logged_in():
-        print(_LOGGED_IN_RESPONSE)
+        safeprint(_LOGGED_IN_RESPONSE)
         return
 
     _do_login_flow()

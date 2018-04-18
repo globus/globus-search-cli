@@ -1,11 +1,10 @@
-from __future__ import print_function
-
 import json
 import copy
 import click
 
+from globus_search_cli.printing import format_output
 from globus_search_cli.config import get_search_client
-from globus_search_cli.parsing import globus_cmd, get_search_index
+from globus_search_cli.parsing import globus_cmd, index_argument
 
 
 @globus_cmd('ingest', help=('Send DOCUMENTS to Globus Search to index. '
@@ -19,17 +18,17 @@ from globus_search_cli.parsing import globus_cmd, get_search_index
 @click.option('--batch-size', type=int, default=100, show_default=True,
               help=('When source-type=GMetaList, how many entries to send '
                     'at a time'))
+@index_argument
 @click.argument('documents', nargs=-1, type=click.File())
-def ingest_func(source_type, batch_size, documents):
+def ingest_func(index_id, source_type, batch_size, documents):
     search_client = get_search_client()
-    index = get_search_index()
 
     # limit batch size to the 1-1000 range
     batch_size = min(max(batch_size, 1), 1000)
     for document in documents:
         loaded_doc = json.load(document)
         if source_type == 'gingest':
-            print(search_client.ingest(index, loaded_doc))
+            format_output(search_client.ingest(index_id, loaded_doc).data)
         elif source_type == 'gmetalist':
             entry_list = loaded_doc.pop('gmeta')
             current_doc = copy.copy(loaded_doc)
@@ -45,7 +44,7 @@ def ingest_func(source_type, batch_size, documents):
                     'source_id': 'search_client_command',
                     'ingest_data': current_doc
                 }
-                print('Sending batch of size {}'.format(batch_size))
-                print('-Start Results-')
-                print(search_client.ingest(index, gingest_doc))
-                print('-End Results-')
+                format_output('Sending batch of size {}'.format(batch_size))
+                format_output('-Start Results-')
+                format_output(search_client.ingest(index_id, gingest_doc).data)
+                format_output('-End Results-')

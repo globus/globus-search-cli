@@ -2,6 +2,7 @@ import click
 
 import globus_sdk
 
+from globus_search_cli.printing import safeprint
 from globus_search_cli.config import (
     SEARCH_AT_OPTNAME, SEARCH_AT_EXPIRES_OPTNAME, SEARCH_RT_OPTNAME,
     lookup_option, remove_option,
@@ -40,7 +41,7 @@ Before attempting any further CLI commands, you will have to login again using
 @click.confirmation_option(prompt='Are you sure you want to logout?',
                            help='Automatically say "yes" to all prompts')
 def logout_command():
-    print(u'Logging out of Globus Search CLI\n')
+    safeprint(u'Logging out of Globus Search CLI\n')
 
     native_client = internal_auth_client()
 
@@ -51,8 +52,8 @@ def logout_command():
         # first lookup the token -- if not found we'll continue
         token = lookup_option(token_opt)
         if not token:
-            print(('Warning: Found no token named "{}"! '
-                   'Recommend rescinding consent').format(token_opt))
+            safeprint(('Warning: Found no token named "{}"! '
+                       'Recommend rescinding consent').format(token_opt))
             print_rescind_help = True
             continue
         # token was found, so try to revoke it
@@ -61,9 +62,9 @@ def logout_command():
         # if we network error, revocation failed -- print message and abort so
         # that we can revoke later when the network is working
         except globus_sdk.NetworkError:
-            print(('Failed to reach Globus to revoke tokens. '
-                   'Because we cannot revoke these tokens, cancelling '
-                   'logout'))
+            safeprint(('Failed to reach Globus to revoke tokens. '
+                       'Because we cannot revoke these tokens, cancelling '
+                       'logout'))
             click.get_current_context().exit(1)
         # finally, we revoked, so it's safe to remove the token
         remove_option(token_opt)
@@ -73,11 +74,11 @@ def logout_command():
 
     # if print_rescind_help is true, we printed warnings above
     # so, jam out an extra newline as a separator
-    print(("\n" if print_rescind_help else "") + _LOGOUT_EPILOG)
+    safeprint(("\n" if print_rescind_help else "") + _LOGOUT_EPILOG)
 
     # if some token wasn't found in the config, it means its possible that the
     # config file was removed without logout
     # in that case, the user should rescind the CLI consent to invalidate any
     # potentially leaked refresh tokens, so print the help on that
     if print_rescind_help:
-        print(_RESCIND_HELP)
+        safeprint(_RESCIND_HELP)

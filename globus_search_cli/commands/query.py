@@ -1,10 +1,8 @@
-from __future__ import print_function
-
-import json
 import click
 
+from globus_search_cli.printing import format_output
 from globus_search_cli.config import get_search_client
-from globus_search_cli.parsing import globus_cmd, get_search_index
+from globus_search_cli.parsing import globus_cmd, index_argument
 
 
 @globus_cmd('query', help='Perform a search')
@@ -14,15 +12,11 @@ from globus_search_cli.parsing import globus_cmd, get_search_index
 @click.option('--limit', type=int,
               help='Limit the number of results to return')
 @click.option('--offset', type=int, help='Starting offset for paging')
+@index_argument
 @click.argument('query_string')
-def query_func(query_string, query_template, limit, offset):
+def query_func(index_id, query_string, query_template, limit, offset):
     search_client = get_search_client()
-    print(
-        json.dumps(
-            search_client.search(
-                get_search_index(), query_string,
-                query_template=query_template,
-                limit=limit,
-                offset=offset).data,
-            indent=2)
-        )
+    format_output(search_client.search(index_id, query_string,
+                                       query_template=query_template,
+                                       limit=limit,
+                                       offset=offset).data)

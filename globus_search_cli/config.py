@@ -114,7 +114,7 @@ def get_search_client():
     def search_refresh_callback(token_response):
         tkn = token_response.by_resource_server
         token = tkn['search.api.globus.org']['access_token']
-        expires_at = token['search.api.globus.org']['expires_at_seconds']
+        expires_at = tkn['search.api.globus.org']['expires_at_seconds']
         write_option(SEARCH_AT_OPTNAME, token)
         write_option(SEARCH_AT_EXPIRES_OPTNAME, expires_at)
 

@@ -31,18 +31,6 @@ class HiddenOption(click.Option):
 class CommandState(object):
     def __init__(self):
         self.debug = False
-        self.index = None
-
-    @staticmethod
-    def callback(ctx, param, value):
-        # short-circuit None vals
-        if not value:
-            return value
-
-        state = ctx.ensure_object(CommandState)
-        if param.name == 'index':
-            state.index = value
-        return value
 
 
 def setup_logging(level="DEBUG"):
@@ -93,6 +81,11 @@ def debug_option(f):
         expose_value=False, callback=callback, is_eager=True)(f)
 
 
+def index_argument(f):
+    f = click.argument('INDEX_ID')(f)
+    return f
+
+
 def common_options(f):
     """
     Global/shared options decorator.
@@ -100,13 +93,6 @@ def common_options(f):
     f = click.help_option('-h', '--help')(f)
     f = click.version_option(__version__, '-v', '--version')(f)
     f = debug_option(f)
-    # NB: don't set required=True on this opt because it's captured by the
-    # group-level commands as well
-    f = click.option('--index',
-                     help=('Name of the search index over which you want '
-                           'to query for results, or into which you want '
-                           'to index data. [required]'),
-                     callback=CommandState.callback, expose_value=False)(f)
 
     return f
 
@@ -159,11 +145,3 @@ def globus_cmd(*args, **kwargs):
         f = common_options(f)
         return f
     return inner_decorator
-
-
-def get_search_index():
-    ctx = click.get_current_context()
-    state = ctx.ensure_object(CommandState)
-    if not state.index:
-        click.UsageError('--index is required')
-    return state.index

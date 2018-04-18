@@ -36,7 +36,7 @@ develop: $(VIRTUALENV)/bin/globus-search
 
 clean:
 	find -name '*.pyc' -delete
-	-rm -r $(VIRTUALENV)
+	-rm -r .venv_*
 	-rm -r build
 	-rm -r dist
 	-rm -r *.egg-info

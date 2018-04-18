@@ -1,16 +1,13 @@
-from __future__ import print_function
-
-import json
 import click
 
+from globus_search_cli.printing import format_output
 from globus_search_cli.config import get_search_client
-from globus_search_cli.parsing import globus_cmd, get_search_index
+from globus_search_cli.parsing import globus_cmd, index_argument
 
 
 @globus_cmd('delete', help='Remove all metadata about a subject')
+@index_argument
 @click.argument('subject')
-def delete_func(subject):
+def delete_func(index_id, subject):
     search_client = get_search_client()
-    print(json.dumps(
-        search_client.delete_subject(
-            get_search_index(), subject).data))
+    format_output(search_client.delete_subject(index_id, subject).data)
