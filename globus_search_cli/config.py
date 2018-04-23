@@ -122,10 +122,12 @@ def get_search_client():
     access_token = lookup_option(SEARCH_AT_OPTNAME)
     access_token_expires = lookup_option(SEARCH_AT_EXPIRES_OPTNAME)
 
-    authorizer = globus_sdk.RefreshTokenAuthorizer(
-        refresh_token, internal_auth_client(),
-        access_token, int(access_token_expires),
-        on_refresh=search_refresh_callback)
+    authorizer = None
+    if access_token_expires is not None:
+        authorizer = globus_sdk.RefreshTokenAuthorizer(
+            refresh_token, internal_auth_client(),
+            access_token, int(access_token_expires),
+            on_refresh=search_refresh_callback)
 
     return globus_sdk.SearchClient(
         authorizer=authorizer,
