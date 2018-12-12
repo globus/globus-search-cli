@@ -3,6 +3,7 @@ from globus_search_cli.commands.query import query_func
 from globus_search_cli.commands.structured_query import structured_query_func
 from globus_search_cli.commands.subject import subject_cmd
 from globus_search_cli.commands.entry import entry_cmd
+from globus_search_cli.commands.task import task_cmd
 from globus_search_cli.commands.query_template import query_template_cmd
 from globus_search_cli.commands.login import login_command
 from globus_search_cli.commands.logout import logout_command
@@ -14,6 +15,7 @@ __all__ = (
     "structured_query_func",
     "subject_cmd",
     "entry_cmd",
+    "task_cmd",
     "query_template_cmd",
     "login_command",
     "logout_command",
