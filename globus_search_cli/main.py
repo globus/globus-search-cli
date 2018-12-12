@@ -1,8 +1,14 @@
-from globus_search_cli.parsing import main_func
 from globus_search_cli.commands import (
-    ingest_func, query_func, structured_query_func,
-    subject_cmd, entry_cmd, query_template_cmd,
-    login_command, logout_command)
+    entry_cmd,
+    ingest_func,
+    login_command,
+    logout_command,
+    query_func,
+    query_template_cmd,
+    structured_query_func,
+    subject_cmd,
+)
+from globus_search_cli.parsing import main_func
 
 
 @main_func

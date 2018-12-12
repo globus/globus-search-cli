@@ -1,5 +1,6 @@
 PYTHON_VERSION?=python2.7
 VIRTUALENV=.venv_$(PYTHON_VERSION)
+AUTOF_VENV=.venv-autoformat
 
 .PHONY: develop build upload clean help
 
@@ -30,6 +31,16 @@ upload: $(VIRTUALENV)/bin/twine build
 $(VIRTUALENV)/bin/globus-search: $(VIRTUALENV) setup.py globus_search_cli
 	$(VIRTUALENV)/bin/python setup.py develop
 	touch $(VIRTUALENV)/bin/globus-search
+
+$(AUTOF_VENV):
+	virtualenv --python python3 $(AUTOF_VENV)
+	$(AUTOF_VENV)/bin/pip install -U 'pip==18.1' 'setuptools==40'
+	$(AUTOF_VENV)/bin/pip install 'black==18.9b0' 'flake8-bugbear==18.8.0' 'flake8>=3.0,<4.0' 'isort>=4.3,<5.0'
+	touch .venv-autoformat
+autoformat: $(AUTOF_VENV)
+	$(AUTOF_VENV)/bin/isort --recursive globus_search_cli/ setup.py
+	$(AUTOF_VENV)/bin/black globus_search_cli/ setup.py
+
 
 develop: $(VIRTUALENV)/bin/globus-search
 

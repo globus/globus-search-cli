@@ -5,6 +5,5 @@ def main_func(f):
     """
     Wrap root command func in common opts and make it a command group
     """
-    f = globus_group('search-client',
-                     help='CLI Client to the Globus Search API')(f)
+    f = globus_group("search-client", help="CLI Client to the Globus Search API")(f)
     return f

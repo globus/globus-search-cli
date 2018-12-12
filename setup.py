@@ -1,5 +1,6 @@
 import os
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 # single source of truth for package version
 version_ns = {}
@@ -8,22 +9,17 @@ with open(os.path.join("globus_search_cli", "version.py")) as f:
 
 
 setup(
-    name='globus-search-cli', version=version_ns["__version__"],
-    include_package_data=True, packages=find_packages(),
-
+    name="globus-search-cli",
+    version=version_ns["__version__"],
+    include_package_data=True,
+    packages=find_packages(),
     install_requires=[
-      'globus-sdk>=1.5.0,<2.0.0',
-      'click>=6.7,<7.0',
-      'configobj>=5.0.6,<6.0.0',
+        "globus-sdk>=1.5.0,<2.0.0",
+        "click>=6.7,<7.0",
+        "configobj>=5.0.6,<6.0.0",
     ],
-
-    entry_points={
-        'console_scripts': [
-            ('globus-search = globus_search_cli:cli_root')
-        ]
-    },
-
-    description='Globus Search CLI',
+    entry_points={"console_scripts": [("globus-search = globus_search_cli:cli_root")]},
+    description="Globus Search CLI",
     long_description=open("README.rst").read(),
     author="Stephen Rosen",
     author_email="sirosen@globus.org",
@@ -39,6 +35,6 @@ setup(
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6"
+        "Programming Language :: Python :: 3.6",
     ],
 )

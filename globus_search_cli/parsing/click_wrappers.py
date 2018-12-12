@@ -5,10 +5,10 @@ We want the niceties of parsing improvements worked out in that project.
 In the future, if we integrate this CLI, it should lead to a smoother
 transition.
 """
-import warnings
 import logging.config
-import click
+import warnings
 
+import click
 from globus_sdk import GlobusAPIError
 
 from globus_search_cli.version import __version__
@@ -21,6 +21,7 @@ class HiddenOption(click.Option):
     Supported in latest and greatest version of Click, but not old versions, so
     use generic 'cls=HiddenOption' to get the desired behavior.
     """
+
     def get_help_record(self, ctx):
         """
         Has "None" as its help record. All that's needed.
@@ -35,30 +36,21 @@ class CommandState(object):
 
 def setup_logging(level="DEBUG"):
     conf = {
-        'version': 1,
-        'formatters': {
-            'basic': {
-                'format':
-                '[%(levelname)s] %(name)s::%(funcName)s() %(message)s'
+        "version": 1,
+        "formatters": {
+            "basic": {"format": "[%(levelname)s] %(name)s::%(funcName)s() %(message)s"}
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "level": level,
+                "formatter": "basic",
             }
         },
-        'handlers': {
-            'console': {
-                'class': 'logging.StreamHandler',
-                'level': level,
-                'formatter': 'basic'
-            }
+        "loggers": {
+            "globus_sdk": {"level": level, "handlers": ["console"]},
+            "globus_search_cli": {"level": level, "handlers": ["console"]},
         },
-        'loggers': {
-            'globus_sdk': {
-                'level': level,
-                'handlers': ['console']
-            },
-            'globus_search_cli': {
-                'level': level,
-                'handlers': ['console']
-            }
-        }
     }
 
     logging.config.dictConfig(conf)
@@ -68,21 +60,26 @@ def debug_option(f):
     def callback(ctx, param, value):
         if not value or ctx.resilient_parsing:
             # turn off warnings altogether
-            warnings.simplefilter('ignore')
+            warnings.simplefilter("ignore")
             return
 
-        warnings.simplefilter('default')
+        warnings.simplefilter("default")
         state = ctx.ensure_object(CommandState)
         state.debug = True
         setup_logging(level="DEBUG")
 
     return click.option(
-        '--debug', is_flag=True, cls=HiddenOption,
-        expose_value=False, callback=callback, is_eager=True)(f)
+        "--debug",
+        is_flag=True,
+        cls=HiddenOption,
+        expose_value=False,
+        callback=callback,
+        is_eager=True,
+    )(f)
 
 
 def index_argument(f):
-    f = click.argument('INDEX_ID')(f)
+    f = click.argument("INDEX_ID")(f)
     return f
 
 
@@ -90,8 +87,8 @@ def common_options(f):
     """
     Global/shared options decorator.
     """
-    f = click.help_option('-h', '--help')(f)
-    f = click.version_option(__version__, '-v', '--version')(f)
+    f = click.help_option("-h", "--help")(f)
+    f = click.version_option(__version__, "-v", "--version")(f)
     f = debug_option(f)
 
     return f
@@ -107,6 +104,7 @@ class GlobusCommandGroup(click.Group):
     off of cases where there are no arguments at all, but also cases where
     there are options, but no subcommand (positional arg) is given.
     """
+
     def invoke(self, ctx):
         # if no subcommand was given (but, potentially, flags were passed),
         # ctx.protected_args will be empty
@@ -129,10 +127,12 @@ def globus_group(*args, **kwargs):
     """
     Wrapper over click.group which sets GlobusCommandGroup as the Class
     """
+
     def inner_decorator(f):
         f = click.group(*args, cls=GlobusCommandGroup, **kwargs)(f)
         f = common_options(f)
         return f
+
     return inner_decorator
 
 
@@ -140,8 +140,10 @@ def globus_cmd(*args, **kwargs):
     """
     Wrapper over click.command which sets common opts
     """
+
     def inner_decorator(f):
         f = click.command(*args, **kwargs)(f)
         f = common_options(f)
         return f
+
     return inner_decorator
