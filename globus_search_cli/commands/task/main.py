@@ -1,3 +1,4 @@
+from globus_search_cli.commands.task.list import list_cmd
 from globus_search_cli.commands.task.show import show_cmd
 from globus_search_cli.parsing import globus_group
 
@@ -8,3 +9,4 @@ def task_cmd():
 
 
 task_cmd.add_command(show_cmd)
+task_cmd.add_command(list_cmd)

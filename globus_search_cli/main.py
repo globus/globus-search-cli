@@ -5,6 +5,7 @@ from globus_search_cli.commands import (
     logout_command,
     query_func,
     query_template_cmd,
+    show_index_cmd,
     structured_query_func,
     subject_cmd,
     task_cmd,
@@ -17,6 +18,7 @@ def cli_root():
     pass
 
 
+cli_root.add_command(show_index_cmd)
 cli_root.add_command(ingest_func)
 cli_root.add_command(query_func)
 cli_root.add_command(structured_query_func)
