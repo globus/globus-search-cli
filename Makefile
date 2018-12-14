@@ -1,6 +1,7 @@
 PYTHON_VERSION?=python2.7
 VIRTUALENV=.venv_$(PYTHON_VERSION)
 AUTOF_VENV=.venv-autoformat
+CLI_VERSION=$(shell grep '^__version__' globus_search_cli/version.py | cut -d '"' -f2)
 
 .PHONY: develop build upload clean help
 
@@ -11,26 +12,21 @@ help:
 	@echo "  help:      Show this helptext"
 	@echo "  build:     Create distributions to upload to pypi"
 	@echo "  develop:   Create and install to local virtualenv"
-	@echo "  upload:    [build], but also upload to pypi using twine"
+	@echo "  release:   [build], but also upload to pypi using twine, git signed tag with version"
 	@echo "  clean:     Remove typically unwanted files, mostly from [build]"
 
 
 $(VIRTUALENV):
 	virtualenv --python=$(PYTHON_VERSION) $(VIRTUALENV)
+	$(VIRTUALENV)/bin/pip install -U twine pip setuptools
+	$(VIRTUALENV)/bin/python setup.py develop
 
 build: $(VIRTUALENV)
 	$(VIRTUALENV)/bin/python setup.py sdist bdist_egg
 
-$(VIRTUALENV)/bin/twine: $(VIRTUALENV)
-	$(VIRTUALENV)/bin/pip install -U twine
-	touch $(VIRTUALENV)/bin/twine
-
-upload: $(VIRTUALENV)/bin/twine build
+release: $(VIRTUALENV) build
+	git tag -s "$(CLI_VERSION)" -m "v$(CLI_VERSION)"
 	$(VIRTUALENV)/bin/twine upload dist/*
-
-$(VIRTUALENV)/bin/globus-search: $(VIRTUALENV) setup.py globus_search_cli
-	$(VIRTUALENV)/bin/python setup.py develop
-	touch $(VIRTUALENV)/bin/globus-search
 
 $(AUTOF_VENV):
 	virtualenv --python python3 $(AUTOF_VENV)
@@ -42,7 +38,7 @@ autoformat: $(AUTOF_VENV)
 	$(AUTOF_VENV)/bin/black globus_search_cli/ setup.py
 
 
-develop: $(VIRTUALENV)/bin/globus-search
+develop: $(VIRTUALENV)
 
 
 clean:
