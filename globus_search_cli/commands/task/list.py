@@ -9,4 +9,4 @@ from globus_search_cli.printing import format_output
 @click.argument("index_id")
 def list_cmd(index_id):
     search_client = get_search_client()
-    format_output(search_client.get("/v1/task_list/{}".format(index_id)).data)
+    format_output(search_client.get_task_list(index_id).data)

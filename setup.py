@@ -14,7 +14,7 @@ setup(
     include_package_data=True,
     packages=find_packages(),
     install_requires=[
-        "globus-sdk>=1.5.0,<2.0.0",
+        "globus-sdk>=1.7.0,<2.0.0",
         "click>=6.7,<7.0",
         "configobj>=5.0.6,<6.0.0",
     ],
