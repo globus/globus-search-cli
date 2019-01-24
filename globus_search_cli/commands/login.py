@@ -57,7 +57,7 @@ def _revoke_current_tokens(native_client):
     for token_opt in (SEARCH_RT_OPTNAME, SEARCH_AT_OPTNAME):
         token = lookup_option(token_opt)
         if token:
-            native_client.aotuh2_revoke_token(token)
+            native_client.oauth2_revoke_token(token)
 
 
 def _store_config(token_response):
