@@ -5,6 +5,7 @@ Mostly cloned from globus-cli
 
 
 import os
+import re
 
 from configobj import ConfigObj
 
@@ -46,6 +47,13 @@ if GLOBUS_ENV:
         "staging": "0811fdd3-0d3e-4b5e-b634-8d6c91d87f21",
         "preview": "988ff3e0-3bcf-495a-9f12-3b3a309bdb36",
     }.get(GLOBUS_ENV, CLIENT_ID)
+
+# explicitly set the base url with this var, e.g. set it to
+# `localhost:8888` for development
+BASE_URL = os.environ.get("GLOBUS_SEARCH_BASE_URL")
+if BASE_URL is not None and not re.match("^https?://", BASE_URL):
+    scheme = "http" if BASE_URL.startswith("localhost:") else "https"
+    BASE_URL = scheme + "://" + BASE_URL
 
 
 def get_config_obj(file_error=False):
@@ -129,7 +137,12 @@ def get_search_client():
             on_refresh=search_refresh_callback,
         )
 
+    add_kwargs = {}
+    if BASE_URL:
+        add_kwargs["base_url"] = BASE_URL
+
     return globus_sdk.SearchClient(
         authorizer=authorizer,
         app_name="search-client-cli v{}".format(version.__version__),
+        **add_kwargs
     )
