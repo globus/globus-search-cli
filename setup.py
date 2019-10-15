@@ -2,8 +2,12 @@ import os
 
 from setuptools import find_packages, setup
 
+MYPY = False
+if MYPY:
+    from tryping import Dict, Any
+
 # single source of truth for package version
-version_ns = {}
+version_ns = {}  # type: Dict[Any, Any]
 with open(os.path.join("globus_search_cli", "version.py")) as f:
     exec(f.read(), version_ns)
 

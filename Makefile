@@ -1,6 +1,5 @@
 PYTHON_VERSION?=python2.7
 VIRTUALENV=.venv_$(PYTHON_VERSION)
-AUTOF_VENV=.venv-autoformat
 CLI_VERSION=$(shell grep '^__version__' globus_search_cli/version.py | cut -d '"' -f2)
 
 .PHONY: develop build upload clean help
@@ -28,22 +27,19 @@ release: $(VIRTUALENV) build
 	git tag -s "$(CLI_VERSION)" -m "v$(CLI_VERSION)"
 	$(VIRTUALENV)/bin/twine upload dist/*
 
-$(AUTOF_VENV):
-	virtualenv --python python3 $(AUTOF_VENV)
-	$(AUTOF_VENV)/bin/pip install -U 'pip==18.1' 'setuptools==40'
-	$(AUTOF_VENV)/bin/pip install 'black==18.9b0' 'flake8-bugbear==18.8.0' 'flake8>=3.0,<4.0' 'isort>=4.3,<5.0'
-	touch .venv-autoformat
-autoformat: $(AUTOF_VENV)
-	$(AUTOF_VENV)/bin/isort --recursive globus_search_cli/ setup.py
-	$(AUTOF_VENV)/bin/black globus_search_cli/ setup.py
-
+.venv-lint:
+	python3 -m venv .venv-lint
+	.venv-lint/bin/pip install -q 'pre-commit==1.18'
+.PHONY: lint
+lint: .venv-lint
+	.venv-lint/bin/pre-commit run --all-files --show-diff-on-failure
 
 develop: $(VIRTUALENV)
 
 
 clean:
 	find -name '*.pyc' -delete
-	-rm -r .venv_*
+	-rm -r .venv*
 	-rm -r build
 	-rm -r dist
 	-rm -r *.egg-info

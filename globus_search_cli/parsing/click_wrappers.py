@@ -9,6 +9,7 @@ import logging.config
 import warnings
 
 import click
+
 from globus_sdk import GlobusAPIError
 
 from globus_search_cli.version import __version__

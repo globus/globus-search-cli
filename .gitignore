@@ -1,4 +1,6 @@
 /.venv_*
+/.venv-*
 /.venv
-/.venv-autoformat
 *.pyc
+.mypy_cache
+*.egg-info

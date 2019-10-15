@@ -1,4 +1,5 @@
 import click
+
 import globus_sdk
 
 from globus_search_cli.config import (
