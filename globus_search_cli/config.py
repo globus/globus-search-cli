@@ -6,8 +6,9 @@ Mostly cloned from globus-cli
 
 import os
 
-import globus_sdk
 from configobj import ConfigObj
+
+import globus_sdk
 
 from globus_search_cli import version
 
@@ -40,6 +41,7 @@ if GLOBUS_ENV:
     SEARCH_AT_EXPIRES_OPTNAME = "{}_{}".format(GLOBUS_ENV, SEARCH_AT_EXPIRES_OPTNAME)
     CLIENT_ID = {
         "sandbox": "f9e36a20-2e1a-49e5-ba67-34cc82ca8b29",
+        "integration": "16ba55fb-5a93-4ee0-ae20-1a3a6cbb6c03",
         "test": "2aa543de-b6c6-4aa5-9d7b-ef28e3a28cd8",
         "staging": "0811fdd3-0d3e-4b5e-b634-8d6c91d87f21",
         "preview": "988ff3e0-3bcf-495a-9f12-3b3a309bdb36",

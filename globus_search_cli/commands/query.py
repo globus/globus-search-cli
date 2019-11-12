@@ -26,5 +26,6 @@ def query_func(index_id, query_string, query_template, limit, offset):
             query_template=query_template,
             limit=limit,
             offset=offset,
+            result_format_version="2019-08-27",
         ).data
     )
