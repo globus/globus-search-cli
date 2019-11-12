@@ -3,12 +3,9 @@ import click
 import globus_sdk
 
 from globus_search_cli.config import (
-    SEARCH_AT_EXPIRES_OPTNAME,
-    SEARCH_AT_OPTNAME,
-    SEARCH_RT_OPTNAME,
+    SEARCH_RESOURCE_SERVER,
     internal_auth_client,
-    lookup_option,
-    remove_option,
+    token_storage_adapter,
 )
 from globus_search_cli.printing import safeprint
 
@@ -53,22 +50,25 @@ def logout_command():
     safeprint(u"Logging out of Globus Search CLI\n")
 
     native_client = internal_auth_client()
+    adapter = token_storage_adapter()
 
     # remove tokens from config and revoke them
     # also, track whether or not we should print the rescind help
     print_rescind_help = False
-    for token_opt in (SEARCH_RT_OPTNAME, SEARCH_AT_OPTNAME):
+    token_data = adapter.read_as_dict().get(SEARCH_RESOURCE_SERVER, {})
+    for token_name in ("access_token", "refresh_token"):
         # first lookup the token -- if not found we'll continue
-        token = lookup_option(token_opt)
+        token = token_data.get(token_name)
         if not token:
             safeprint(
                 (
                     'Warning: Found no token named "{}"! '
                     "Recommend rescinding consent"
-                ).format(token_opt)
+                ).format(token_name)
             )
             print_rescind_help = True
             continue
+
         # token was found, so try to revoke it
         try:
             native_client.oauth2_revoke_token(token)
@@ -83,11 +83,9 @@ def logout_command():
                 )
             )
             click.get_current_context().exit(1)
-        # finally, we revoked, so it's safe to remove the token
-        remove_option(token_opt)
 
-    # remove expiration time, just for cleanliness
-    remove_option(SEARCH_AT_EXPIRES_OPTNAME)
+    # clear token data from storage
+    adapter.remove_tokens_for_resource_server(SEARCH_RESOURCE_SERVER)
 
     # if print_rescind_help is true, we printed warnings above
     # so, jam out an extra newline as a separator

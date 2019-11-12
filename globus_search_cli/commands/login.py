@@ -3,17 +3,12 @@ import platform
 import click
 
 from globus_search_cli.config import (
-    SEARCH_AT_EXPIRES_OPTNAME,
-    SEARCH_AT_OPTNAME,
-    SEARCH_RT_OPTNAME,
+    SEARCH_ALL_SCOPE,
+    SEARCH_RESOURCE_SERVER,
     internal_auth_client,
-    lookup_option,
-    write_option,
+    token_storage_adapter,
 )
 from globus_search_cli.printing import safeprint
-
-SEARCH_ALL_SCOPE = "urn:globus:auth:scope:search.api.globus.org:all"
-
 
 _SHARED_EPILOG = """\
 
@@ -45,7 +40,11 @@ You may force a new login with
 
 
 def _check_logged_in():
-    search_rt = lookup_option(SEARCH_RT_OPTNAME)
+    adapter = token_storage_adapter()
+
+    search_rt = (
+        adapter.read_as_dict().get(SEARCH_RESOURCE_SERVER, {}).get("refresh_token")
+    )
     if search_rt is None:
         return False
     native_client = internal_auth_client()
@@ -54,24 +53,11 @@ def _check_logged_in():
 
 
 def _revoke_current_tokens(native_client):
-    for token_opt in (SEARCH_RT_OPTNAME, SEARCH_AT_OPTNAME):
-        token = lookup_option(token_opt)
-        if token:
-            native_client.oauth2_revoke_token(token)
-
-
-def _store_config(token_response):
-    tkn = token_response.by_resource_server
-
-    search_at = tkn["search.api.globus.org"]["access_token"]
-    search_rt = tkn["search.api.globus.org"]["refresh_token"]
-    search_at_expires = tkn["search.api.globus.org"]["expires_at_seconds"]
-
-    write_option(SEARCH_RT_OPTNAME, search_rt)
-    write_option(SEARCH_AT_OPTNAME, search_at)
-    write_option(SEARCH_AT_EXPIRES_OPTNAME, search_at_expires)
-
-    safeprint(_LOGIN_EPILOG)
+    adapter = token_storage_adapter()
+    all_tokendata = adapter.read_as_dict().values()
+    for token_data in all_tokendata:
+        native_client.oauth2_revoke_token(token_data["access_token"])
+        native_client.oauth2_revoke_token(token_data["refresh_token"])
 
 
 def _do_login_flow():
@@ -93,7 +79,9 @@ def _do_login_flow():
     auth_code = click.prompt("Enter the resulting Authorization Code here").strip()
     tkn = native_client.oauth2_exchange_code_for_tokens(auth_code)
     _revoke_current_tokens(native_client)
-    _store_config(tkn)
+    token_storage_adapter().store(tkn)
+
+    safeprint(_LOGIN_EPILOG)
 
 
 @click.command(
