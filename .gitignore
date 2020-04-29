@@ -1,6 +1,7 @@
 /.venv_*
 /.venv-*
 /.venv
+/globus-search
 *.pyc
 .mypy_cache
 *.egg-info
