@@ -1,9 +1,9 @@
 version: 2
 sphinx:
   configuration: docs/conf.py
-formats:
-  - dirhtml
 python:
   version: 3.7
   install:
+    - method: pip
+      path: .
     - requirements: docs/requirements.txt
