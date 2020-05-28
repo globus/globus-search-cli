@@ -1,8 +1,6 @@
 import json
 import sys
 
-import six
-
 
 def safeprint(s):
     try:
@@ -13,7 +11,7 @@ def safeprint(s):
 
 
 def format_output(dataobject):
-    if isinstance(dataobject, six.string_types):
+    if isinstance(dataobject, str):
         safeprint(dataobject)
     else:
         safeprint(json.dumps(dataobject, indent=2, separators=(",", ": ")))
