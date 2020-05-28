@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-0.3.0 (Unreleased)
-------------------
+0.3.0
+-----
 
 * Add the changelog
 
