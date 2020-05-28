@@ -6,6 +6,8 @@ CHANGELOG
 
 * Add the changelog
 
+* Add a ReadTheDocs documentation site
+
 * Switch token storage from config file to a sqlite DB in the user's home
   directory. This will require users to re-login.
 
