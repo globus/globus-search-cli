@@ -2,6 +2,8 @@
 /.venv-*
 /.venv
 /globus-search
+.tox
+_build
 *.pyc
 .mypy_cache
 *.egg-info

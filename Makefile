@@ -22,19 +22,24 @@ help:
 $(VIRTUALENV):
 	virtualenv --python=$(PYTHON_VERSION) $(VIRTUALENV)
 	$(VIRTUALENV)/bin/pip install -U pip setuptools
-	$(VIRTUALENV)/bin/python setup.py develop
 
 install: $(VIRTUALENV)
 	$(VIRTUALENV)/bin/python setup.py develop
 	-rm globus-search
 	ln -s "$(VIRTUALENV)/bin/globus-search" globus-search
 
-$(VIRTUALENV)/bin/twine: $(VIRTUALENV)
-	$(VIRTUALENV)/bin/pip install -U twine
-release: $(VIRTUALENV) $(VIRTUALENV)/bin/twine
-	$(VIRTUALENV)/bin/python setup.py sdist bdist_egg
+.PHONY: lint test docs
+lint:
+	tox -e lint
+test:
+	@echo "no testsuite yet"
+docs:
+	tox -e docs
+
+.PHONY: release
+release:
 	git tag -s "$(CLI_VERSION)" -m "v$(CLI_VERSION)"
-	$(VIRTUALENV)/bin/twine upload dist/*
+	tox -e publish-release
 
 clean:
 	find -name '*.pyc' -delete
