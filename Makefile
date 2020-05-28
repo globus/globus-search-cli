@@ -45,6 +45,7 @@ clean:
 	find -name '*.pyc' -delete
 	-rm globus-search
 	-rm -r .venv*
+	-rm -r .tox
 	-rm -r build
 	-rm -r dist
 	-rm -r *.egg-info

@@ -22,6 +22,17 @@ setup(
         "globus-sdk>=1.7.0,<2.0.0",
         "globus-sdk-tokenstorage==0.2.1",
     ],
+    extras_require={
+        "development": [
+            # testing
+            "pytest<5.0",
+            "pytest-cov<3.0",
+            # mocking HTTP responses
+            "httpretty==0.9.5",
+            # reading fixture data from config
+            "pyyaml",
+        ]
+    },
     entry_points={"console_scripts": [("globus-search = globus_search_cli:cli_root")]},
     description="Globus Search CLI",
     long_description=open("README.rst").read(),

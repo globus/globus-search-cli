@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+Unreleased
+----------
+
+* The order of keys in JSON output will be sorted to remain stable
+
 0.3.0
 -----
 

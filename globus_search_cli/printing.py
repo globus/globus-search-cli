@@ -14,4 +14,6 @@ def format_output(dataobject):
     if isinstance(dataobject, str):
         safeprint(dataobject)
     else:
-        safeprint(json.dumps(dataobject, indent=2, separators=(",", ": ")))
+        safeprint(
+            json.dumps(dataobject, indent=2, separators=(",", ": "), sort_keys=True)
+        )
