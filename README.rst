@@ -4,18 +4,20 @@
 .. image:: https://readthedocs.org/projects/globus-search-cli/badge/?version=latest
     :target: https://globus-search-cli.readthedocs.io/en/latest/?badge=latest
 
-Globus Search CLI Client (Alpha!)
-=================================
+Globus Search CLI
+=================
+
+.. warning::
+    This product is in Alpha and under active development. Its interface may change
+    version-to-version.
 
 A command-line tool for interacting with Globus Search.
 
 Provides the `globus-search` command.
 
-This product is in Alpha and under active development. Its interface may change
-version-to-version.
-
-At a future date, we hope to incorporate this functionality into the
-`globus-cli`. At that time, support for this tool will be dropped.
+.. note::
+    At a future date, we hope to incorporate this functionality into the
+    ``globus-cli``. At that time, support for this tool will be dropped.
 
 Requirements
 ------------
@@ -31,9 +33,16 @@ Install
 Use
 ---
 
-`globus-search --help`
+``globus-search --help``
 
 Uninstall
 ---------
 
 ``pip uninstall globus-search-cli``
+
+Bugs, Feature Requests, and Issues
+----------------------------------
+
+All issue tracking is done in the open
+`Globus Search CLI <https://github.com/globus/globus-search-cli/issues/>`_
+issue tracker.
