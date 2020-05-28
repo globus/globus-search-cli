@@ -1,6 +1,9 @@
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
 
+.. image:: https://readthedocs.org/projects/globus-search-cli/badge/?version=latest
+    :target: https://globus-search-cli.readthedocs.io/en/latest/?badge=latest
+
 Globus Search CLI Client (Alpha!)
 =================================
 
@@ -17,7 +20,7 @@ At a future date, we hope to incorporate this functionality into the
 Requirements
 ------------
 
-You must have Python 2.7+ or 3.4+, ``pip``, and ``virtualenv`` installed.
+You must have Python 3.5+, ``pip``, and ``virtualenv`` installed.
 There are no other requirements.
 
 Install

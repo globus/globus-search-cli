@@ -8,6 +8,8 @@ CHANGELOG
 
 * Add a ReadTheDocs documentation site
 
+* Remove support for python2
+
 * Switch token storage from config file to a sqlite DB in the user's home
   directory. This will require users to re-login.
 
