@@ -6,6 +6,8 @@ Unreleased
 
 * The order of keys in JSON output will be sorted to remain stable
 
+* Add `--advanced` and `--bypass-visible-to` flags to the query command
+
 0.3.0
 -----
 
