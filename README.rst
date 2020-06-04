@@ -18,23 +18,42 @@ Provides the `globus-search` command.
 Requirements
 ------------
 
-You must have Python 3.5+, ``pip``, and ``virtualenv`` installed.
+You must have Python 3.5+ and ``pip`` installed.
 There are no other requirements.
 
 Install
 -------
 
-``pip install globus-search-cli``
+.. code-block:: bash
+
+    pip install globus-search-cli
+
+Install for Production Usage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you plan to use ``globus-search-cli`` in a production environment or
+workflow, it is strongly recommended that you pin the exact version you are
+using while it is in beta.
+
+For example,
+
+.. code-block:: bash
+
+    pip install 'globus-search-cli==0.4.0'
 
 Use
 ---
 
-``globus-search --help``
+.. code-block:: bash
+
+    globus-search --help
 
 Uninstall
 ---------
 
-``pip uninstall globus-search-cli``
+.. code-block:: bash
+
+    pip uninstall globus-search-cli
 
 Bugs, Feature Requests, and Issues
 ----------------------------------
