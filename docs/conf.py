@@ -33,7 +33,7 @@ release = "0.3.0"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx_issues"]
+extensions = ["sphinx_issues", "globus_search_cli._sphinxext"]
 issues_github_path = "globus/globus-search-cli"
 
 # Add any paths that contain templates here, relative to this directory.
