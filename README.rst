@@ -7,10 +7,6 @@
 Globus Search CLI
 =================
 
-.. warning::
-    This product is in Alpha and under active development. Its interface may change
-    version-to-version.
-
 A command-line tool for interacting with Globus Search.
 
 Provides the `globus-search` command.
