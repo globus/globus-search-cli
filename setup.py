@@ -41,7 +41,7 @@ setup(
     url="https://github.com/globus/globus-search-cli",
     keywords=["globus", "cli", "command line", "search"],
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: POSIX",
