@@ -12,6 +12,7 @@ from globus_sdk_tokenstorage import SQLiteAdapter
 import globus_sdk
 
 from globus_search_cli import version
+from globus_search_cli.server_timing import ServerTimingPrintMixin
 
 __all__ = (
     "SEARCH_ALL_SCOPE",
@@ -44,6 +45,10 @@ BASE_URL = os.environ.get("GLOBUS_SEARCH_BASE_URL")
 if BASE_URL is not None and not re.match("^https?://", BASE_URL):
     scheme = "http" if BASE_URL.startswith("localhost:") else "https"
     BASE_URL = scheme + "://" + BASE_URL
+
+
+class SearchClient(ServerTimingPrintMixin, globus_sdk.SearchClient):
+    pass
 
 
 def internal_auth_client():
@@ -84,7 +89,7 @@ def get_search_client():
     if BASE_URL:
         add_kwargs["base_url"] = BASE_URL
 
-    return globus_sdk.SearchClient(
+    return SearchClient(
         authorizer=authorizer,
         app_name="search-client-cli v{}".format(version.__version__),
         **add_kwargs
