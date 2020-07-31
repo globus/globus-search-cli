@@ -4,6 +4,11 @@ CHANGELOG
 Unreleased
 ----------
 
+.. changelog:: 0.4.1 beta
+
+* Fix :issue:`3`, a bug with unauthenticated commands crashing before
+  producing an unauthenticated client
+
 .. changelog:: 0.4.0 beta
 
 * The order of keys in JSON output will be sorted to remain stable

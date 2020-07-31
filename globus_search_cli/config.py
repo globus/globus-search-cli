@@ -69,7 +69,7 @@ def get_search_client():
     maybe_existing = storage_adapter.read_as_dict()
 
     refresh_token, access_token, access_token_expires = None, None, None
-    if maybe_existing is not None:
+    if maybe_existing is not None and SEARCH_RESOURCE_SERVER in maybe_existing:
         searchdata = maybe_existing[SEARCH_RESOURCE_SERVER]
         access_token = searchdata["access_token"]
         refresh_token = searchdata["refresh_token"]
