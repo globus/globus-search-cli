@@ -9,6 +9,7 @@ from globus_search_cli.commands import (
     structured_query_func,
     subject_cmd,
     task_cmd,
+    delete_by_query_cmd,
 )
 from globus_search_cli.parsing import main_func
 
@@ -22,6 +23,7 @@ cli_root.add_command(show_index_cmd)
 cli_root.add_command(ingest_func)
 cli_root.add_command(query_func)
 cli_root.add_command(structured_query_func)
+cli_root.add_command(delete_by_query_cmd)
 cli_root.add_command(subject_cmd)
 cli_root.add_command(entry_cmd)
 cli_root.add_command(task_cmd)

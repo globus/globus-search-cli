@@ -8,6 +8,7 @@ from globus_search_cli.commands.show_index import show_index_cmd
 from globus_search_cli.commands.structured_query import structured_query_func
 from globus_search_cli.commands.subject import subject_cmd
 from globus_search_cli.commands.task import task_cmd
+from globus_search_cli.commands.delete_by_query import delete_by_query_cmd
 
 __all__ = (
     "ingest_func",
@@ -20,4 +21,5 @@ __all__ = (
     "login_command",
     "logout_command",
     "show_index_cmd",
+    "delete_by_query_cmd",
 )
