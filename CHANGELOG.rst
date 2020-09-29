@@ -4,6 +4,11 @@ CHANGELOG
 Unreleased
 ----------
 
+* By default, output UTF-8 data without using `\u...` escapes
+
+* ascii-only data can be obtained by setting the environment variable,
+  `GLOBUS_SEARCH_ENSURE_ASCII=1`
+
 .. changelog:: 0.5.0 beta
 
 * Add support for delete-by-query
