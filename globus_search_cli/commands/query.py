@@ -26,10 +26,23 @@ from globus_search_cli.printing import format_output
     help="[admins only] Bypass the visible_to restriction on searches. "
     "This option is only available to the admins of an index",
 )
+# this option is in early development in Globus Search -- it may be dropped and is
+# currently not documented (intentionally)
+@click.option(
+    "--filter-principal-sets",
+    hidden=True,
+)
 @index_argument
 @click.argument("query_string")
 def query_func(
-    index_id, query_string, query_template, limit, offset, bypass_visible_to, advanced
+    index_id,
+    query_string,
+    query_template,
+    limit,
+    offset,
+    bypass_visible_to,
+    advanced,
+    filter_principal_sets,
 ):
     search_client = get_search_client()
     format_output(
@@ -41,6 +54,7 @@ def query_func(
             query_template=query_template,
             limit=limit,
             offset=offset,
+            filter_principal_sets=filter_principal_sets,
             result_format_version="2019-08-27",
         ).data
     )
