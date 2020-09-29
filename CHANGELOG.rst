@@ -4,6 +4,8 @@ CHANGELOG
 Unreleased
 ----------
 
+.. changelog:: 0.5.1 beta
+
 * By default, output UTF-8 data without using `\u...` escapes
 
 * ascii-only data can be obtained by setting the environment variable,
