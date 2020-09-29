@@ -4,6 +4,10 @@ CHANGELOG
 Unreleased
 ----------
 
+.. changelog:: 0.5.0 beta
+
+* Add support for delete-by-query
+
 .. changelog:: 0.4.1 beta
 
 * Fix :issue:`3`, a bug with unauthenticated commands crashing before
