@@ -4,6 +4,10 @@ CHANGELOG
 Unreleased
 ----------
 
+* Fix :issue:`4`, in which `globus-search ingest` did not properly handle
+  `--source-type=gmetalist`. Thanks to :user:`lukaszlacinski` for reporting
+  this!
+
 .. changelog:: 0.5.1 beta
 
 * By default, output UTF-8 data without using `\u...` escapes
