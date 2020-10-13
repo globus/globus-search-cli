@@ -4,6 +4,8 @@ CHANGELOG
 Unreleased
 ----------
 
+.. changelog:: 0.5.2 beta
+
 * Fix :issue:`4`, in which `globus-search ingest` did not properly handle
   `--source-type=gmetalist`. Thanks to :user:`lukaszlacinski` for reporting
   this!
