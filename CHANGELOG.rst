@@ -4,18 +4,28 @@ CHANGELOG
 Unreleased
 ----------
 
+* Rename ``globus-search show-index`` to ``globus-search index show``
+
+  * ``show-index`` is being kep for one version only, but it is deprecated and
+    hidden from ``globus-search --help`` output
+
+* Add ``globus-search index list`` to list indices where you have permissions
+
+* Add ``globus-search index role list`` to list roles on an index (requires that
+  you have admin)
+
 .. changelog:: 0.5.2 beta
 
-* Fix :issue:`4`, in which `globus-search ingest` did not properly handle
-  `--source-type=gmetalist`. Thanks to :user:`lukaszlacinski` for reporting
+* Fix :issue:`4`, in which ``globus-search ingest`` did not properly handle
+  ``--source-type=gmetalist``. Thanks to :user:`lukaszlacinski` for reporting
   this!
 
 .. changelog:: 0.5.1 beta
 
-* By default, output UTF-8 data without using `\u...` escapes
+* By default, output UTF-8 data without using ``\u...`` escapes
 
 * ascii-only data can be obtained by setting the environment variable,
-  `GLOBUS_SEARCH_ENSURE_ASCII=1`
+  ``GLOBUS_SEARCH_ENSURE_ASCII=1``
 
 .. changelog:: 0.5.0 beta
 
@@ -30,7 +40,7 @@ Unreleased
 
 * The order of keys in JSON output will be sorted to remain stable
 
-* Add `--advanced` and `--bypass-visible-to` flags to the query command
+* Add ``--advanced`` and ``--bypass-visible-to`` flags to the query command
 
 .. changelog:: 0.3.0 alpha
 
