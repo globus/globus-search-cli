@@ -4,6 +4,8 @@ CHANGELOG
 Unreleased
 ----------
 
+.. changelog:: 0.6.0 beta
+
 * Remove ``globus-search query-template`` commands and ``--query-template``
   option from ``globus-search query``
 
