@@ -4,6 +4,9 @@ CHANGELOG
 Unreleased
 ----------
 
+* Remove ``globus-search query-template`` commands and ``--query-template``
+  option from ``globus-search query``
+
 * Rename ``globus-search show-index`` to ``globus-search index show``
 
   * ``show-index`` is being kep for one version only, but it is deprecated and

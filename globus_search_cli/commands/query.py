@@ -6,13 +6,6 @@ from globus_search_cli.printing import format_output
 
 
 @globus_cmd("query", help="Perform a search")
-@click.option(
-    "--query-template",
-    help=(
-        "A predefined Query Template name in the search service. "
-        "Correct usage relies on prior knowledge of valid names"
-    ),
-)
 @click.option("--limit", type=int, help="Limit the number of results to return")
 @click.option("--offset", type=int, help="Starting offset for paging")
 @click.option(
@@ -37,7 +30,6 @@ from globus_search_cli.printing import format_output
 def query_func(
     index_id,
     query_string,
-    query_template,
     limit,
     offset,
     bypass_visible_to,
@@ -51,7 +43,6 @@ def query_func(
             query_string,
             advanced=advanced,
             bypass_visible_to=bypass_visible_to,
-            query_template=query_template,
             limit=limit,
             offset=offset,
             filter_principal_sets=filter_principal_sets,
