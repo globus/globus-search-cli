@@ -4,6 +4,14 @@ CHANGELOG
 Unreleased
 ----------
 
+.. changelog:: 0.7.0 beta
+
+* Add ``globus-search index role create`` command
+
+* Add ``globus-search index role delete`` command
+
+* Remove ``globus-search show-index``
+
 .. changelog:: 0.6.0 beta
 
 * Remove ``globus-search query-template`` commands and ``--query-template``
