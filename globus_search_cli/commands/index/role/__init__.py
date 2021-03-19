@@ -1,4 +1,6 @@
 from globus_search_cli.commands.index.role.list import list_cmd
+from globus_search_cli.commands.index.role.delete import delete_cmd
+from globus_search_cli.commands.index.role.create import create_cmd
 from globus_search_cli.parsing import globus_group
 
 
@@ -8,3 +10,5 @@ def role_cmd():
 
 
 role_cmd.add_command(list_cmd)
+role_cmd.add_command(delete_cmd)
+role_cmd.add_command(create_cmd)
