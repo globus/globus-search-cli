@@ -18,7 +18,7 @@ Provides the `globus-search` command.
 Requirements
 ------------
 
-You must have Python 3.5+ and ``pip`` installed.
+You must have Python 3.6+ and ``pip`` installed.
 There are no other requirements.
 
 Install
@@ -39,7 +39,7 @@ For example,
 
 .. code-block:: bash
 
-    pip install 'globus-search-cli==0.4.0'
+    pip install 'globus-search-cli==0.7.0'
 
 Use
 ---
