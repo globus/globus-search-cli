@@ -1,6 +1,7 @@
 """copied mostly from gcs-cli test fixture config"""
 import json
 import os
+import typing
 
 import httpretty
 import yaml
@@ -12,7 +13,7 @@ _base_url_map = {
     "auth": "https://auth.globus.org/",
 }
 
-_response_fixtures = {}
+_response_fixtures: typing.Dict[str, typing.Any] = {}
 
 
 def get_response_fixtures(service):
