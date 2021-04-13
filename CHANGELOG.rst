@@ -4,6 +4,10 @@ CHANGELOG
 Unreleased
 ----------
 
+.. changelog:: 0.7.1 beta
+
+* Add ``globus-search index create`` command
+
 .. changelog:: 0.7.0 beta
 
 * Add ``globus-search index role create`` command
