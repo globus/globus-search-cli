@@ -86,7 +86,7 @@ def _do_login_flow():
 
 @click.command(
     "login",
-    short_help=("Log into Globus to get credentials for " "the Globus Search CLI"),
+    short_help=("Log into Globus to get credentials for the Globus Search CLI"),
     help=(
         "Get credentials for the Globus Search CLI. "
         "Necessary before any 'globus-search' commands which "

@@ -6,7 +6,7 @@ def test_collection_show(run_line):
     path = "/v1/index/1a57bbe5-5272-477f-9d31-343b8258b7a5"
     register_api_route_from_fixtures("search", path, "GET", 200)
 
-    output = run_line("globus-search show-index 1a57bbe5-5272-477f-9d31-343b8258b7a5")
+    output = run_line("globus-search index show 1a57bbe5-5272-477f-9d31-343b8258b7a5")
 
     assert (
         output

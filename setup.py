@@ -20,7 +20,7 @@ setup(
     install_requires=[
         "click>=7.0,<8.0",
         "globus-sdk>=1.7.0,<2.0.0",
-        "globus-sdk-tokenstorage==0.2.1",
+        "globus-sdk-tokenstorage==0.4.0",
     ],
     extras_require={
         "development": [

@@ -56,10 +56,16 @@ def internal_auth_client():
 
 
 def token_storage_adapter():
+    fname = os.path.expanduser("~/.globus_search.db")
+    # if the file exists and world or group permissions are set, fix
+    if os.path.exists(fname):
+        stat = os.stat(fname)
+        if (stat.st_mode & 0o077) != 0:
+            os.chmod(fname, 0o600)
     if not hasattr(token_storage_adapter, "_instance"):
         # namespace is equal to the current environment
         token_storage_adapter._instance = SQLiteAdapter(
-            os.path.expanduser("~/.globus_search.db"), namespace=GLOBUS_ENV or "DEFAULT"
+            fname, namespace=GLOBUS_ENV or "DEFAULT"
         )
     return token_storage_adapter._instance
 
