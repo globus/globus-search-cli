@@ -4,6 +4,11 @@ CHANGELOG
 Unreleased
 ----------
 
+.. changelog:: 0.7.2 beta
+
+* *Security Fix*: Fix issue in which token storage could have incorrect
+  permissions, resulting in tokens being readable by other local users
+
 .. changelog:: 0.7.1 beta
 
 * Add ``globus-search index create`` command
