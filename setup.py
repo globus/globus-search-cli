@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 MYPY = False
 if MYPY:
-    from tryping import Dict, Any
+    from tryping import Any, Dict
 
 # single source of truth for package version
 version_ns = {}  # type: Dict[Any, Any]
@@ -18,17 +18,17 @@ setup(
     include_package_data=True,
     packages=find_packages(),
     install_requires=[
-        "click>=7.0,<8.0",
-        "globus-sdk>=1.7.0,<2.0.0",
-        "globus-sdk-tokenstorage==0.4.0",
+        "click>=8.0,<9.0",
+        "globus-sdk>=3.0.2,<4",
+        "globus-sdk-tokenstorage==0.4.1",
     ],
     extras_require={
-        "development": [
+        "dev": [
             # testing
             "pytest<5.0",
             "pytest-cov<3.0",
             # mocking HTTP responses
-            "httpretty==0.9.5",
+            "responses==0.14.0",
             # reading fixture data from config
             "pyyaml",
         ]
@@ -46,9 +46,9 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: POSIX",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
 )

@@ -42,10 +42,11 @@ def query_func(
             index_id,
             query_string,
             advanced=advanced,
-            bypass_visible_to=bypass_visible_to,
             limit=limit,
             offset=offset,
-            filter_principal_sets=filter_principal_sets,
-            result_format_version="2019-08-27",
+            query_params={
+                "filter_principal_sets": filter_principal_sets,
+                "bypass_visible_to": bypass_visible_to,
+            },
         ).data
     )

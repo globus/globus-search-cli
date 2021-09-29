@@ -1,3 +1,5 @@
+import json
+
 import click
 
 from globus_search_cli.config import get_search_client
@@ -11,4 +13,4 @@ from globus_search_cli.printing import format_output
 def create_func(index_id, source):
     search_client = get_search_client()
     with open(source) as f:
-        format_output(search_client.create_entry(index_id, f.read()).data)
+        format_output(search_client.create_entry(index_id, json.load(f)).data)

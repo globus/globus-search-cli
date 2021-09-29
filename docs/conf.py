@@ -15,7 +15,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath("../"))
 
-import globus_search_cli  # isort:skip # noqa: F401
+import globus_search_cli  # isort:skip # noqa: F401,E402
 
 
 # -- Project information -----------------------------------------------------

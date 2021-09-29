@@ -3,10 +3,8 @@ import json
 import os
 import typing
 
-import httpretty
+import responses
 import yaml
-
-from globus_sdk.base import slash_join
 
 _base_url_map = {
     "search": "https://search.api.globus.org/",
@@ -49,7 +47,7 @@ def register_api_route_from_fixtures(
         method,
         code,
         get_fixture_example_response_body(service, path, method.lower(), example_name),
-        **kwargs
+        **kwargs,
     )
 
 
@@ -59,20 +57,19 @@ def register_api_route_from_string(
     """
     Handy wrapper for adding URIs to the HTTPretty state.
     """
-    assert httpretty.is_enabled()
     assert service in _base_url_map
     base_url = _base_url_map.get(service)
-    full_url = slash_join(base_url, path)
+    full_url = base_url + path.lstrip("/")
 
     # can set it to `{}` explicitly to clear the default
     if adding_headers is None:
         adding_headers = {"Content-Type": "application/json"}
 
-    httpretty.register_uri(
+    responses.add(
         method,
         full_url,
+        headers=adding_headers,
         status=code,
         body=payload_string,
-        adding_headers=adding_headers,
-        **kwargs
+        **kwargs,
     )

@@ -52,6 +52,4 @@ def create_cmd(index_id, role_name, principal, principal_type):
 
     role_doc = {"role_name": role_name, "principal": principal}
     search_client = get_search_client()
-    format_output(
-        search_client.post(f"/v1/index/{index_id}/role", json_body=role_doc).data
-    )
+    format_output(search_client.post(f"/v1/index/{index_id}/role", data=role_doc).data)

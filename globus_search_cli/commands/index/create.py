@@ -11,4 +11,4 @@ from globus_search_cli.printing import format_output
 def create_cmd(display_name, description):
     index_doc = {"display_name": display_name, "description": description}
     search_client = get_search_client()
-    format_output(search_client.post("/beta/index", json_body=index_doc).data)
+    format_output(search_client.post("/beta/index", data=index_doc).data)

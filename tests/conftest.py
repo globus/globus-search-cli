@@ -1,29 +1,30 @@
+import os
 import shlex
 
 import click
-import httpretty
 import pytest
+import responses
 from click.testing import CliRunner
 
 from globus_search_cli import cli_root
 
-# disable the use of real sockets when HTTPretty socket mocking is in place --
-# if you make a real API call, it will immediately error
-httpretty.httpretty.allow_net_connect = False
-
 
 @pytest.fixture(autouse=True)
-def enable_httpretty():
+def mocked_responses(monkeypatch):
     """
-    All tests enable HTTPretty patching of the python socket module, replacing
-    all network IO.
+    All tests enable `responses` patching of the `requests` package, replacing
+    all HTTP calls.
     """
-    httpretty.enable()
+    responses.start()
+
+    # while request mocking is running, ensure GLOBUS_SDK_ENVIRONMENT is set to
+    # production
+    monkeypatch.setitem(os.environ, "GLOBUS_SDK_ENVIRONMENT", "production")
 
     yield
 
-    httpretty.disable()
-    httpretty.reset()
+    responses.stop()
+    responses.reset()
 
 
 @pytest.fixture

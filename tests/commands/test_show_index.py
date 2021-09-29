@@ -1,4 +1,5 @@
-import httpretty
+import responses
+
 from tests.framework.responses import register_api_route_from_fixtures
 
 
@@ -25,6 +26,6 @@ def test_collection_show(run_line):
 }
 """
     )
-    last_req = httpretty.last_request()
+    last_req = responses.calls[-1]
     assert last_req.method == "GET"
     assert last_req.path == path

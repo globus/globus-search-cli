@@ -86,8 +86,8 @@ def get_search_client():
         authorizer = globus_sdk.RefreshTokenAuthorizer(
             refresh_token,
             internal_auth_client(),
-            access_token,
-            int(access_token_expires),
+            access_token=access_token,
+            expires_at=int(access_token_expires),
             on_refresh=storage_adapter.on_refresh,
         )
 
