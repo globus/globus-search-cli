@@ -26,6 +26,6 @@ def test_collection_show(run_line):
 }
 """
     )
-    last_req = responses.calls[-1]
+    last_req = responses.calls[-1].request
     assert last_req.method == "GET"
-    assert last_req.path == path
+    assert last_req.path_url == path

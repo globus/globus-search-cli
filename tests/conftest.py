@@ -1,10 +1,13 @@
 import os
 import shlex
+import time
+from unittest import mock
 
 import click
 import pytest
 import responses
 from click.testing import CliRunner
+from globus_sdk_tokenstorage import SQLiteAdapter
 
 from globus_search_cli import cli_root
 
@@ -25,6 +28,57 @@ def mocked_responses(monkeypatch):
 
     responses.stop()
     responses.reset()
+
+
+def _mock_token_response_data(rs_name, scope, token_blob=None):
+    if token_blob is None:
+        token_blob = rs_name.split(".")[0]
+    return {
+        "scope": scope,
+        "refresh_token": f"{token_blob}RT",
+        "access_token": f"{token_blob}AT",
+        "token_type": "bearer",
+        "expires_at_seconds": int(time.time()) + 120,
+        "resource_server": rs_name,
+    }
+
+
+@pytest.fixture
+def mock_login_token_response():
+    mock_token_res = mock.Mock()
+    mock_token_res.by_resource_server = {
+        "auth.globus.org": _mock_token_response_data(
+            "auth.globus.org",
+            "openid profile email "
+            "urn:globus:auth:scope:auth.globus.org:view_identity_set",
+        ),
+        "search.api.globus.org": _mock_token_response_data(
+            "search.api.globus.org",
+            "urn:globus:auth:scope:search.api.globus.org:all",
+        ),
+    }
+    return mock_token_res
+
+
+@pytest.fixture
+def test_token_storage(mock_login_token_response):
+    """Put memory-backed sqlite token storage in place for the testsuite to use."""
+    mockstore = SQLiteAdapter(":memory:")
+    mockstore.store_config(
+        "auth_client_data",
+        {"client_id": "fakeClientIDString", "client_secret": "fakeClientSecret"},
+    )
+    mockstore.store(mock_login_token_response)
+    return mockstore
+
+
+@pytest.fixture(autouse=True)
+def patch_tokenstorage(monkeypatch, test_token_storage):
+    monkeypatch.setattr(
+        "globus_search_cli.config.token_storage_adapter._instance",
+        test_token_storage,
+        raising=False,
+    )
 
 
 @pytest.fixture
