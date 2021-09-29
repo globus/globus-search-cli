@@ -4,6 +4,10 @@ CHANGELOG
 Unreleased
 ----------
 
+.. changelog:: 0.8.0 beta
+
+* Update to use globus-sdk version 3
+
 .. changelog:: 0.7.2 beta
 
 * *Security Fix*: Fix issue in which token storage could have incorrect
