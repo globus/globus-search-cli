@@ -4,6 +4,8 @@ CHANGELOG
 Unreleased
 ----------
 
+.. changelog:: 0.8.1 beta
+
 * Fix the group ID URNs used in ``globus-search index role create --type group``. These
   were written with the string ``:group:`` where ``:groups:`` was needed.
 
