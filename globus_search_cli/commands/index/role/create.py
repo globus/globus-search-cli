@@ -37,7 +37,7 @@ def create_cmd(index_id, role_name, principal, principal_type):
                 f"--type=identity but '{principal}' is not a valid identity URN"
             )
         if principal_type == "group" and not principal.startswith(
-            "urn:globus:group:id:"
+            "urn:globus:groups:id:"
         ):
             raise click.UsageError(
                 f"--type=group but '{principal}' is not a valid group URN"
@@ -46,7 +46,7 @@ def create_cmd(index_id, role_name, principal, principal_type):
         if principal_type == "identity":
             principal = f"urn:globus:auth:identity:{principal}"
         elif principal_type == "group":
-            principal = f"urn:globus:group:id:{principal}"
+            principal = f"urn:globus:groups:id:{principal}"
         else:
             raise click.UsageError(f"'{principal}' is not a valid URN")
 
