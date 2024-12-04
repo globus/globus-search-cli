@@ -1,6 +1,11 @@
 Basic Usage
 ===========
 
+.. warning::
+
+    This tool is no longer supported. Users should migrate to the
+    ``globus-cli`` package and ``globus search`` commands.
+
 The globus-search-cli provides a way of communicating with the Globus Search
 service. Most of the ideas and concepts exposed by this tool are more fully
 documented in the

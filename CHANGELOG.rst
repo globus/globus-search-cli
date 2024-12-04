@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+.. warning::
+
+    This tool is no longer supported. Users should migrate to the
+    ``globus-cli`` package and ``globus search`` commands.
+
 Unreleased
 ----------
 
