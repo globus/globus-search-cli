@@ -2,9 +2,6 @@ import os
 
 from setuptools import find_packages, setup
 
-MYPY = False
-if MYPY:
-    from tryping import Any, Dict
 
 # single source of truth for package version
 version_ns = {}  # type: Dict[Any, Any]
@@ -41,14 +38,10 @@ setup(
     url="https://github.com/globus/globus-search-cli",
     keywords=["globus", "cli", "command line", "search"],
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 7 - Inactive",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: POSIX",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
     ],
 )

@@ -1,3 +1,8 @@
+.. warning::
+
+    This tool is no longer supported. Users should migrate to the
+    ``globus-cli`` package and ``globus search`` commands.
+
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
 
@@ -10,10 +15,6 @@ Globus Search CLI
 A command-line tool for interacting with Globus Search.
 
 Provides the `globus-search` command.
-
-.. note::
-    At a future date, we hope to incorporate this functionality into the
-    ``globus-cli``. At that time, support for this tool will be dropped.
 
 Requirements
 ------------
